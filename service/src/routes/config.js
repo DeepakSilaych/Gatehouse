@@ -27,7 +27,7 @@ router.post('/sites', (req, res) => {
   res.status(201).json(site);
 });
 
-router.put('/api/sites/:domain', (req, res) => {
+router.put('/sites/:domain', (req, res) => {
   const { domain } = req.params;
   if (!getSite(domain)) {
     return res.status(404).json({ error: 'Site not found' });
@@ -41,7 +41,7 @@ router.put('/api/sites/:domain', (req, res) => {
   res.json(getSite(domain));
 });
 
-router.delete('/api/sites/:domain', (req, res) => {
+router.delete('/sites/:domain', (req, res) => {
   if (!removeSite(req.params.domain)) {
     return res.status(404).json({ error: 'Site not found' });
   }
