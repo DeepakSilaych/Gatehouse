@@ -4,11 +4,11 @@ import { hashPassword } from '../auth.js';
 
 const router = Router();
 
-router.get('/api/users', (_req, res) => {
+router.get('/users', (_req, res) => {
   res.json(listAll());
 });
 
-router.post('/api/users', async (req, res) => {
+router.post('/users', async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ error: 'Username and password required' });
@@ -20,7 +20,7 @@ router.post('/api/users', async (req, res) => {
   res.status(201).json({ username });
 });
 
-router.delete('/api/users/:username', (req, res) => {
+router.delete('/users/:username', (req, res) => {
   const { changes } = remove(req.params.username);
   if (!changes) return res.status(404).json({ error: 'User not found' });
   res.json({ deleted: req.params.username });

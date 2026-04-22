@@ -3,7 +3,7 @@ import { listSessions, removeSession } from '../db.js';
 
 const router = Router();
 
-router.get('/api/sessions', (_req, res) => {
+router.get('/sessions', (_req, res) => {
   res.json(listSessions());
 });
 

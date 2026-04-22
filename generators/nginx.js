@@ -38,7 +38,7 @@ function serverBlock(site, authDomain, isProtected) {
     lines.push(authBlock('        '), '');
     lines.push(
       `        location @login_redirect {`,
-      `            return 302 https://${authDomain}/login?redirect=$scheme://$host$request_uri;`,
+      `            return 302 $scheme://${authDomain}/login?redirect=$scheme://$host$request_uri;`,
       `        }`,
       '',
     );

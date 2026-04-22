@@ -17,21 +17,16 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.get('/health', (_req, res) => res.sendStatus(200));
+
 app.use(verifyRoutes);
 app.use(loginRoutes);
 
-const apiRouter = express.Router();
-apiRouter.use(requireAuth);
-apiRouter.use(userRoutes);
-apiRouter.use(configRoutes);
-apiRouter.use(sessionRoutes);
-app.use(apiRouter);
+app.use('/api', requireAuth, userRoutes, configRoutes, sessionRoutes);
 
 app.use('/dashboard', requireAuth, express.static(join(__dirname, '..', 'public', 'dashboard')));
 
-app.get('/health', (_req, res) => res.sendStatus(200));
-
-app.get('/', (req, res) => res.redirect('/dashboard'));
+app.get('/', (_req, res) => res.redirect('/dashboard'));
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Gatehouse auth service running on :${PORT}`);

@@ -2,13 +2,14 @@ export const outputPath = 'caddy/Caddyfile';
 
 export function generate(config) {
   const protectedSites = config.sites.filter((s) => s.protected);
+  const scheme = config.tls === false ? 'http://' : '';
   const lines = [];
 
   if (protectedSites.length) {
     lines.push(
       '(protect) {',
       '\tforward_auth auth-service:3000 {',
-      `\t\turi /verify?rd=https://${config.auth_domain}`,
+      `\t\turi /verify?rd=${config.auth_domain}`,
       '\t\tcopy_headers X-Auth-User',
       '\t}',
       '}',
@@ -17,14 +18,14 @@ export function generate(config) {
   }
 
   lines.push(
-    `${config.auth_domain} {`,
+    `${scheme}${config.auth_domain} {`,
     '\treverse_proxy auth-service:3000',
     '}',
     '',
   );
 
   for (const site of config.sites) {
-    lines.push(`${site.domain} {`);
+    lines.push(`${scheme}${site.domain} {`);
     if (site.protected) lines.push('\timport protect');
     lines.push(`\treverse_proxy ${site.upstream}`);
     lines.push('}', '');

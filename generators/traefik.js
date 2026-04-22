@@ -10,7 +10,7 @@ export function generate(config) {
     '  middlewares:',
     '    gatehouse-auth:',
     '      forwardAuth:',
-    `        address: "http://auth-service:3000/verify?rd=https://${config.auth_domain}"`,
+    `        address: "http://auth-service:3000/verify?rd=${config.auth_domain}"`,
     '        authResponseHeaders:',
     '          - "X-Auth-User"',
     '        trustForwardHeader: true',

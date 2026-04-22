@@ -18,7 +18,10 @@ function handleUnauth(req, res) {
   const original = encodeURIComponent(`${proto}://${host}${uri}`);
   const rd = req.query.rd;
 
-  if (rd) return res.redirect(`${rd}/login?redirect=${original}`);
+  if (rd) {
+    const base = rd.includes('://') ? rd : `${proto}://${rd}`;
+    return res.redirect(`${base}/login?redirect=${original}`);
+  }
 
   const authDomain = process.env.AUTH_DOMAIN;
   res.set('X-Auth-Redirect', `${proto}://${authDomain}/login?redirect=${original}`);

@@ -1,0 +1,26 @@
+services:
+  test-app:
+    image: node:20-alpine
+    command:
+      - node
+      - -e
+      - |
+        require('http').createServer((q, r) => {
+          r.writeHead(200, { 'Content-Type': 'application/json' });
+          r.end(JSON.stringify({ app: 'protected', path: q.url, user: q.headers['x-auth-user'] || null }));
+        }).listen(3000);
+    networks:
+      - web
+
+  test-public:
+    image: node:20-alpine
+    command:
+      - node
+      - -e
+      - |
+        require('http').createServer((q, r) => {
+          r.writeHead(200, { 'Content-Type': 'application/json' });
+          r.end(JSON.stringify({ app: 'public', path: q.url }));
+        }).listen(3000);
+    networks:
+      - web

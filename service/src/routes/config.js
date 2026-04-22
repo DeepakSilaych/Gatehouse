@@ -4,11 +4,11 @@ import { countUsers, countSessions } from '../db.js';
 
 const router = Router();
 
-router.get('/api/sites', (_req, res) => {
+router.get('/sites', (_req, res) => {
   res.json(getSites());
 });
 
-router.post('/api/sites', (req, res) => {
+router.post('/sites', (req, res) => {
   const { domain, upstream } = req.body;
   if (!domain || !upstream) {
     return res.status(400).json({ error: 'Domain and upstream required' });
@@ -48,7 +48,7 @@ router.delete('/api/sites/:domain', (req, res) => {
   res.json({ deleted: req.params.domain });
 });
 
-router.get('/api/stats', (_req, res) => {
+router.get('/stats', (_req, res) => {
   const sites = siteStats();
   res.json({
     users: countUsers(),
