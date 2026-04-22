@@ -6,3 +6,4 @@ nginx/nginx.conf
 traefik/dynamic.yml
 traefik/traefik.yml
 docker-compose.yml
+bun.lock
