@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gatehouse</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <h1>Gatehouse</h1>
+      <a href="/logout">Sign out</a>
+    </header>
+
+    <aside class="sidebar">
+      <nav>
+        <button class="nav-item active" data-tab="overview">Overview</button>
+        <button class="nav-item" data-tab="users">Users</button>
+        <button class="nav-item" data-tab="sites">Sites</button>
+        <button class="nav-item" data-tab="sessions">Sessions</button>
+      </nav>
+    </aside>
+
+    <main class="main" id="content"></main>
+  </div>
+
+  <dialog id="user-dialog">
+    <h3>Add User</h3>
+    <form id="user-form">
+      <div class="form-group">
+        <label for="new-username">Username</label>
+        <input type="text" id="new-username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="new-password">Password</label>
+        <input type="password" id="new-password" name="password" required>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn" onclick="document.getElementById('user-dialog').close()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="site-dialog">
+    <h3 id="site-dialog-title">Add Site</h3>
+    <form id="site-form">
+      <input type="hidden" name="mode" value="add">
+      <div class="form-group">
+        <label for="site-domain">Domain</label>
+        <input type="text" id="site-domain" name="domain" placeholder="app.example.com" required>
+      </div>
+      <div class="form-group">
+        <label for="site-upstream">Upstream (service:port)</label>
+        <input type="text" id="site-upstream" name="upstream" placeholder="myapp:3000" required>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <input type="checkbox" id="site-protected" name="protected" checked>
+          <label for="site-protected" style="margin:0">Require authentication</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="site-paths">Public paths (one per line)</label>
+        <textarea id="site-paths" name="public_paths" placeholder="/health&#10;/api/status"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="site-ips">IP whitelist (one per line, CIDR supported)</label>
+        <textarea id="site-ips" name="ip_whitelist" placeholder="10.0.0.0/8&#10;192.168.1.100"></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn" onclick="document.getElementById('site-dialog').close()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast-container" id="toasts"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

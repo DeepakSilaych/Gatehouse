@@ -1,0 +1,8 @@
+node_modules/
+.env
+auth_data/
+caddy/Caddyfile
+nginx/nginx.conf
+traefik/dynamic.yml
+traefik/traefik.yml
+docker-compose.yml

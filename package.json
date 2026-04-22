@@ -1,0 +1,12 @@
+{
+  "name": "gatehouse",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "gatehouse": "./bin/gatehouse.js"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.0.0",
+    "commander": "^13.0.0"
+  }
+}
